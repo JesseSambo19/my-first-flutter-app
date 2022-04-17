@@ -10,17 +10,18 @@ class RandomWords extends StatefulWidget {
 
 class _RandomWordsState extends State<RandomWords> {
   final _randomWordPairs = <WordPair>[];
-  final _savedWordPairs = Set<WordPair>();
+  final _savedWordPairs = <WordPair>{};
 
   Widget _buildList() {
     return ListView.builder(
       padding: const EdgeInsets.all(16.0),
       itemBuilder: (context, item) {
         if (item.isOdd) {
-          return Divider();
+          return const Divider();
         }
 
-        final index = item ~/ 2; // we want this to basically calculate the number of
+        final index =
+            item ~/ 2; // we want this to basically calculate the number of
         // word pairs that are in the listView minus the divider widgets (we don't want the dividers included here)
 
         if (index >= _randomWordPairs.length) {
@@ -35,7 +36,7 @@ class _RandomWordsState extends State<RandomWords> {
   Widget _buildRow(WordPair pair) {
     final alreadySaved = _savedWordPairs.contains(pair);
     return ListTile(
-      title: Text(pair.asPascalCase, style: TextStyle(fontSize: 18.0)),
+      title: Text(pair.asPascalCase, style: const TextStyle(fontSize: 18.0)),
       trailing: Icon(alreadySaved ? Icons.favorite : Icons.favorite_border,
           color: alreadySaved ? Colors.red : null),
       onTap: () {
@@ -55,7 +56,8 @@ class _RandomWordsState extends State<RandomWords> {
         .push(MaterialPageRoute(builder: (BuildContext context) {
       final Iterable<ListTile> tiles = _savedWordPairs.map((WordPair pair) {
         return ListTile(
-            title: Text(pair.asPascalCase, style: TextStyle(fontSize: 16.0)));
+            title: Text(pair.asPascalCase,
+                style: const TextStyle(fontSize: 16.0)));
       });
 
       final List<Widget> divided =
@@ -63,7 +65,7 @@ class _RandomWordsState extends State<RandomWords> {
 
       return Scaffold(
           appBar: AppBar(
-            title: Center(child: Text("Saved WordPairs")),
+            title: const Center(child: Text("Saved WordPairs")),
             // backgroundColor: Colors.purple[900],
           ),
           body: ListView(children: divided));
@@ -73,10 +75,10 @@ class _RandomWordsState extends State<RandomWords> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("WordPair Generator")),
+        title: const Center(child: Text("WordPair Generator")),
         // backgroundColor: Colors.purple[900],
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.list), onPressed: _pushSaved)
+          IconButton(icon: const Icon(Icons.list), onPressed: _pushSaved)
         ],
       ),
       body: _buildList(),
